@@ -1,0 +1,13 @@
+.restaurant-card {
+    padding: 10px;
+    margin: 10px;
+    width: 300px; /* ปรับขนาดต้องการ */
+    display: inline-block; /* แสดงแบบ inline */
+    vertical-align: top; /* จัดตำแหน่งตามด้านบน */
+  }
+  
+  .row {
+    white-space: nowrap; /* ไม่ให้ข้อมูลขึ้นบรรทัดใหม่ */
+    overflow-x: auto; /* แสดงแถบเลื่อนเมื่อข้อมูลเกินขอบเขต */
+  }
+  
