@@ -47,9 +47,9 @@ const SearchMenu: React.FC = () => {
           onKeyPress={handleSearch}
         />
   
-        <div id="restaurants" className="row"> {/* เพิ่ม className "row" */}
+        <div id="restaurants" className="row">
           {restaurants.map((restaurant) => (
-            <div className='restaurant-card' key={restaurant.id}> {/* เพิ่ม className "restaurant-card" */}
+            <div className='restaurant-card' key={restaurant.id}> 
               <Card restaurant={restaurant} />
             </div>
           ))}

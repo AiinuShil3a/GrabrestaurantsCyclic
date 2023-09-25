@@ -4,6 +4,9 @@ import Restaurant from './pages/restaurant'; // Updated import with capitalized 
 import Add from './pages/add'; // Updated import with capitalized component name
 import Search from './pages/search'; // Updated import with capitalized component name
 import Edit from './pages/edit';
+import SingIn from './pages/signIn'; // Updated import with capitalized component name
+import SingUp from './pages/signup'; // Updated import with capitalized component name
+
 
 function App() {
   
@@ -16,6 +19,8 @@ function App() {
           <Route path='/add' element={<Add />} />
           <Route path='/search' element={<Search />} />
           <Route path='/Edit/:restaurantId' element={<Edit />} />
+          <Route path='/signinorsignup' element={<SingIn />} />
+          <Route path="/signup" element={<SingUp />} />
         </Routes>
       </div>
     </BrowserRouter>
