@@ -104,7 +104,7 @@ console.log(restaurantId);
           className="btn btn-primary"
           onClick={handleClick}
         >
-          Add Restaurant
+          Update Restaurant
         </button>
       </div>
     </form>

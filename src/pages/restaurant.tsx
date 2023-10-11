@@ -30,6 +30,8 @@ const RestaurantList: React.FC = () => {
     const fetchAllRestaurants = async () => {
       try {
         const res = await axios.get<resType[]>(`${URL}/Restaurants`, config);
+        console.log(`${URL}/Restaurants`);
+        
         setRestaurants(res.data);
       } catch (error) {
         console.error(error);
