@@ -1,10 +1,18 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface AuthContextType {
   isLogged: boolean;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
+  roles: string | null;
+  setRoles: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,8 +25,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUserData = JSON.parse(localStorage.getItem("user") || "{}");
+    const storedUsername = storedUserData.username;
+    const storedRoles = storedUserData.roles;
+
+    if (token && storedUsername) {
+      setIsLogged(true);
+      setUsername(storedUsername);
+      setRoles(storedRoles);
+    } else {
+      setIsLogged(false);
+      setUsername("");
+      setRoles(null);
+    }
+  }, []);
+
+  const [roles, setRoles] = useState<string | null>(null);
+
   return (
-    <AuthContext.Provider value={{ isLogged, setIsLogged, username, setUsername }}>
+    <AuthContext.Provider
+      value={{ isLogged, setIsLogged, username, setUsername, roles, setRoles }}
+    >
       {children}
     </AuthContext.Provider>
   );

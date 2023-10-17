@@ -49,7 +49,7 @@ const AddRestaurant: React.FC = () => {
       Img: "",
     });
     setError(false);
-  }
+  };
 
   return (
     <div className="container mt-4">

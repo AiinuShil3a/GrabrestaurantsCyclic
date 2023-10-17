@@ -19,9 +19,15 @@ const config: AuthServiceConfig = {
   },
 };
 
-
-const login = async (username: string, password: string): Promise<AxiosResponse> => {
-  const res = await axios.post(`${API_URL}singin`, { username, password }, config);
+const login = async (
+  username: string,
+  password: string
+): Promise<AxiosResponse> => {
+  const res = await axios.post(
+    `${API_URL}singin`,
+    { username, password },
+    config
+  );
   if (res.data.accessToken) {
     localStorage.setItem("user", JSON.stringify(res.data));
     localStorage.setItem("token", JSON.stringify(res.data.accessToken));
@@ -30,17 +36,30 @@ const login = async (username: string, password: string): Promise<AxiosResponse>
 };
 
 const register = async (username: string, email: string, password: string) => {
-  return await axios.post(`${API_URL}singup`, { username, email, password }, config);
-}
+  return await axios.post(
+    `${API_URL}singup`,
+    { username, email, password },
+    config
+  );
+};
+
+const registerAdmin = async (username: string, email: string, password: string , roles: string[] ) => {
+  return await axios.post(
+    `${API_URL}singup`,
+    { username, email, password , roles },
+    config
+  );
+};
 
 const getUser = () => {
   return JSON.parse(localStorage.getItem("user") || "null");
-}
+};
 
 const authservice = {
   login,
   register,
-  getUser
+  registerAdmin,
+  getUser,
 };
 
 export default authservice;

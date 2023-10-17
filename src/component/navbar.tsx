@@ -1,38 +1,27 @@
-import React , {useEffect} from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
-import { useAuth } from '../service/AuthContext';
+import { useAuth } from "../service/AuthContext";
 
 function NavbarComponent() {
-  const { isLogged, username, setIsLogged, setUsername } = useAuth();
+  const { isLogged, setIsLogged, username, setUsername, roles, setRoles } =
+    useAuth();
+
+  function isAdmin(): boolean {
+    return !!roles && roles.includes("ROLE ADMIN");
+  }
 
   const handleLogout = () => {
     setIsLogged(false);
     setUsername("");
+    setRoles(null); // เคลียร์ state ของ roles
     localStorage.removeItem("token");
     localStorage.removeItem("user");
   };
 
-  const handleProfile = () => {
-
-  };
-
-  useEffect(() =>{
-    const token = localStorage.getItem("token");
-    const storedUserData = JSON.parse(localStorage.getItem("user") || "{}");
-    const storedUsername = storedUserData.username;
-    if (token && storedUsername){
-      setIsLogged(true);
-      setUsername(storedUsername);
-    } else {
-      setIsLogged(false);
-      setUsername("");
-    }
-  },[])
   return (
     <Navbar expand="lg" bg="body-tertiary">
       <Container>
@@ -40,7 +29,7 @@ function NavbarComponent() {
           <Nav.Link as={Link} to="/">
             Home
           </Nav.Link>
-          {isLogged && ( // ? : if else && เปรียบเทียบ
+          {isAdmin() && (
             <Nav.Link as={Link} to="/add">
               Add
             </Nav.Link>
@@ -57,7 +46,9 @@ function NavbarComponent() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={handleProfile}>Profile</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/profile">
+                  Profile
+                </Dropdown.Item>
                 <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

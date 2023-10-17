@@ -8,6 +8,7 @@ import SingIn from './pages/signIn'; // Updated import with capitalized componen
 import SingUp from './pages/signup'; // Updated import with capitalized component name
 import { AuthProvider } from './service/AuthContext';
 import { ProtectRoute } from './service/protectedRoute'
+import Profile from './pages/Profile';
 
 
 function App() {
@@ -19,13 +20,12 @@ function App() {
         <div className='App'>
           <Routes>
             <Route path='/' element={<Restaurant />} />
-            <Route path='/add' element={<ProtectRoute><Add /></ProtectRoute>} />
+            <Route path='/add' element={<ProtectRoute roles={['ROLE ADMIN']}><Add /></ProtectRoute>} />
+            <Route path='/Edit/:restaurantId' element={<ProtectRoute roles={['ROLE ADMIN']}><Edit /></ProtectRoute>} />
             <Route path='/search' element={<ProtectRoute><Search /></ProtectRoute>} />
-            <Route path='/Edit/:restaurantId' element={<ProtectRoute><Edit /></ProtectRoute>} />
-            <Route path='/search' element={<Search />} />
-            <Route path='/Edit/:restaurantId' element={<Edit />} />
             <Route path='/signinorsignup' element={<SingIn />} />
             <Route path="/signup" element={<SingUp />} />
+            <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>} />
           </Routes>
         </div>
       </AuthProvider> 

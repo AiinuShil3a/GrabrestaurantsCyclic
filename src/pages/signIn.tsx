@@ -3,29 +3,32 @@ import { Card, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import service from "../service/auth.service.js";
-import { useAuth } from '../service/AuthContext';
+import { useAuth } from "../service/AuthContext";
 
 interface UserType {
   username: string;
   password: string;
+  roles: string;
 }
 
 const LoginCard = () => {
   const [signin, setSignin] = useState<UserType>({
     username: "",
     password: "",
+    roles: "",
   });
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const { setIsLogged, setUsername } = useAuth();
+  const { setIsLogged, setUsername , setRoles } = useAuth();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignin((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSuccessfulLogin = (userData: any) => {
+  const handleSuccessfulLogin = (userData: UserType) => {
     setIsLogged(true);
     setUsername(userData.username);
+    setRoles(userData.roles);
   };
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
