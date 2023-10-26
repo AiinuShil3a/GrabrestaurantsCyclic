@@ -1,17 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Card from "../component/card";
-
-const URL = import.meta.env.VITE_BASE_URL;
-const Username = import.meta.env.VITE_BASE_USERNAME;
-const Password = import.meta.env.VITE_BASE_PASSWORD;
-
-const config = {
-  auth: {
-    username: Username,
-    password: Password,
-  },
-};
+import api from "../service/api"
 
 interface resType {
   id: number;
@@ -27,7 +16,7 @@ const RestaurantList: React.FC = () => {
   useEffect(() => {
     const fetchAllRestaurants = async () => {
       try {
-        const res = await axios.get<resType[]>(`${URL}/Restaurants`, config);
+        const res = await api.get<resType[]>(`/Restaurants`);
         console.log(`${URL}/Restaurants`);
 
         setRestaurants(res.data);

@@ -9,19 +9,8 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 import "../assets/cardInline.css";
-import axios from "axios";
 import { useAuth } from "../service/AuthContext";
-
-const URL = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-const config = {
-  auth: {
-    username: USERNAME,
-    password: PASSWORD,
-  },
-};
-
+import api from "../service/api"
 interface restaurantsType {
   id: number;
   name: string;
@@ -57,9 +46,8 @@ const Card: React.FC<{ restaurant: restaurantsType }> = ({ restaurant }) => {
       setIsDeleting(true);
 
       try {
-        await axios.delete(
-          `${URL}/RestaurantShil3aiinu/${restaurant.id}`,
-          config
+        await api.delete(
+          `/RestaurantShil3aiinu/${restaurant.id}`,
         );
         setIsDeleted(true); // กำหนดว่ารายการถูกลบแล้ว
       } catch (error) {
