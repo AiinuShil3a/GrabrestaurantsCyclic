@@ -1,3 +1,4 @@
+//ส่วนนี้ได้ย้ายไปใช้ในตัว token.service.ts แล้ว
 interface User {
     accessToken?: string;
     [key: string]: any; // ใช้สำหรับ properties อื่นๆของ user object หากมี
