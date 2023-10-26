@@ -1,4 +1,4 @@
-//ตัวจัดการเกี่ยวกับ Token
+//ตัวจัดการเกี่ยวกับ Token ทั้งรีเฟรช และ ดึงโทเคนเพื่อนำไปใช้ต่อใน headers
 const getLocalRefreshToken = (): string | undefined => { //กำหนด type เป็น String หรือ ประเภทไม่รู้จักใช้ในกรณีอาจจะเป็นประเภทที่ซับซ้อนกว่าปกติ
     const user = JSON.parse(localStorage.getItem("user") || 'null');
     return user?.refreshToken;
