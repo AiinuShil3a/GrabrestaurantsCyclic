@@ -10,7 +10,6 @@ import { AuthProvider } from './service/AuthContext';
 import { ProtectRoute } from './service/protectedRoute'
 import Profile from './pages/Profile';
 
-
 function App() {
   
   return (

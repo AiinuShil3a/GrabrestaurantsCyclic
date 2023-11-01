@@ -11,6 +11,7 @@ import {
 import "../assets/cardInline.css";
 import { useAuth } from "../service/AuthContext";
 import api from "../service/api"
+import Swal from 'sweetalert2'
 interface restaurantsType {
   id: number;
   name: string;
@@ -40,22 +41,32 @@ const Card: React.FC<{ restaurant: restaurantsType }> = ({ restaurant }) => {
     return !!roles && roles.includes("ROLE ADMIN");
   }
 
-  const deleteClick = async () => {
-    const confirmDelete = window.confirm("คุณต้องการลบร้านอาหารนี้หรือไม่?");
-    if (confirmDelete) {
-      setIsDeleting(true);
-
-      try {
-        await api.delete(
-          `/RestaurantShil3aiinu/${restaurant.id}`,
-        );
-        setIsDeleted(true); // กำหนดว่ารายการถูกลบแล้ว
-      } catch (error) {
-        console.error(error);
-      } finally {
+  const deleteClick = () => {
+    Swal.fire({
+      title: 'Do you want to Delete?',
+      html: '<p>You really want to delete this item?</p>',
+      showDenyButton: false, // ละออกปุ่มสายเลือก
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      footer: '<p>No way to run</p>',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await api.delete(
+            `/RestaurantShil3aiinu/${restaurant.id}`,
+          );
+          setIsDeleted(true);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsDeleting(false);
+        }
+      } else {
         setIsDeleting(false);
       }
-    }
+    });
+    
   };
 
   return (
