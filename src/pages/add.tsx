@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-const URL = import.meta.env.VITE_BASE_URL;
-const Username = import.meta.env.VITE_BASE_USERNAME;
-const Password = import.meta.env.VITE_BASE_PASSWORD;
-
-const config = {
-  auth: {
-    username: Username,
-    password: Password,
-  },
-};
+import api from "../service/api"
 
 interface RestaurantType {
   name: string;
@@ -34,7 +24,7 @@ const AddRestaurant: React.FC = () => {
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      await axios.post(`${URL}/RestaurantShil3aiinu`, newRestaurant, config);
+      await api.post(`/RestaurantShil3aiinu`, newRestaurant);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -49,7 +39,7 @@ const AddRestaurant: React.FC = () => {
       Img: "",
     });
     setError(false);
-  }
+  };
 
   return (
     <div className="container mt-4">
